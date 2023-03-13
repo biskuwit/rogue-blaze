@@ -1,0 +1,28 @@
+﻿@page "/indoor" 
+
+<div class="map">
+    <!-- map is rendered row by row, top to bottom (TODO: Means x-axis points downwards. Standard? -->
+    @for (var y = 0; y < _positions.GetLength(1); y++)
+    {
+        <div id="row_@y" class="row">
+            @for (var x = 0; x < _positions.GetLength(0); x++)
+            {
+                var imgFileName = _positions[x, y].ImageName + ".png";
+                <div id="@x,@y" class="tile">
+                    <div class="map_img" style="background-image: url('img/uf_terrain/@imgFileName');" alt="@x,@y"> </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@functions {
+    readonly MapPosition[,] _positions = CreateMap(20, 12);
+
+    // Create map 
+    private static MapPosition[,] CreateMap(int width, int height)
+    {
+        var dg = new DungeonGenerator(width, height);
+        return dg.Map;
+    }
+}

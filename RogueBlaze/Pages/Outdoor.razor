@@ -1,0 +1,64 @@
+﻿@page "/outdoor" 
+
+<div class="map">
+    <!-- map is rendered row by row, top to bottom (TODO: Means x-axis points downwards. Standard? -->
+    @for (var y = 0; y < _positions.GetLength(1); y++)
+    {
+        <div id="row_@y" class="row">
+            @for (var x = 0; x < _positions.GetLength(0); x++)
+            {
+                var imgFileName = _positions[x, y].ImageName + ".png";
+                <div id="@x,@y" class="tile">
+                    <div class="map_img" style="background-image: url('img/uf_terrain/@imgFileName');" alt="@x,@y"> </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@functions {
+    readonly MapPosition[,] _positions = CreateMap(20, 12);
+    
+    static readonly string[] Prefixes = {"ground"};
+    static readonly string[] Middles =
+    {
+        "crusted",
+        "dirt_brown",
+        "dirt_dark",
+        "grass",
+        "grass_burnt",
+        "sand"
+    };
+
+    // Create map 
+    private static MapPosition[,] CreateMap(int width, int height)
+    {
+        var poss = new MapPosition[width, height];
+        var random = new Random();
+
+        for (var x = 0; x < width; x++)
+        {
+            for (var y = 0; y < height; y++)
+            {
+                var prefixIndex = random.Next(0, Prefixes.Length - 1);
+                var prefix = Prefixes[prefixIndex];
+
+                var middleIndex = random.Next(0, Middles.Length - 1);
+                var middle = Middles[middleIndex];
+
+                var number = random.Next(1, 4);
+                var imageName = prefix + "_" + middle + "_" + number;
+
+                poss[x, y] = new MapPosition
+                {
+                    ImageName = imageName,
+                    X = x,
+                    Y = y
+                };
+            }
+        }
+
+        return poss;
+    }
+
+}
