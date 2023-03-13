@@ -1,7 +1,7 @@
 ﻿@page "/outdoor" 
 
 <div class="map">
-    <!-- map is rendered row by row, top to bottom (TODO: Means x-axis points downwards. Standard? -->
+    <!-- map is rendered row by row, top to bottom (TODO: Means y-axis points downwards. Standard? -->
     @for (var y = 0; y < _positions.GetLength(1); y++)
     {
         <div id="row_@y" class="row">
@@ -40,10 +40,10 @@
         {
             for (var y = 0; y < height; y++)
             {
-                var prefixIndex = random.Next(0, Prefixes.Length - 1);
+                var prefixIndex = random.Next(0, Prefixes.Length);
                 var prefix = Prefixes[prefixIndex];
 
-                var middleIndex = random.Next(0, Middles.Length - 1);
+                var middleIndex = random.Next(0, Middles.Length);
                 var middle = Middles[middleIndex];
 
                 var number = random.Next(1, 4);
