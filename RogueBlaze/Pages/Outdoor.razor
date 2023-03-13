@@ -49,12 +49,7 @@
                 var number = random.Next(1, 4);
                 var imageName = prefix + "_" + middle + "_" + number;
 
-                poss[x, y] = new MapPosition
-                {
-                    ImageName = imageName,
-                    X = x,
-                    Y = y
-                };
+                poss[x, y] = new MapPosition(x, y, TileType.Floor, imageName);
             }
         }
 

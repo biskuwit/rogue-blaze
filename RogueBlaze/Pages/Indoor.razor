@@ -8,8 +8,9 @@
             @for (var x = 0; x < _positions.GetLength(0); x++)
             {
                 var imgFileName = _positions[x, y].ImageName + ".png";
+                var tileType = _positions[x, y].TileType.ToString();
                 <div id="@x,@y" class="tile">
-                    <div class="map_img" style="background-image: url('img/uf_terrain/@imgFileName');" alt="@x,@y"> </div>
+                    <div class="map_img" style="background-image: url('img/uf_terrain/@imgFileName');" alt="@x,@y (@tileType)"> </div>
                 </div>
             }
         </div>
@@ -17,7 +18,7 @@
 </div>
 
 @functions {
-    readonly MapPosition[,] _positions = CreateMap(20, 12);
+    readonly MapPosition[,] _positions = CreateMap(30, 20);
 
     // Create map 
     private static MapPosition[,] CreateMap(int width, int height)
@@ -26,4 +27,5 @@
         dg.Generate();
         return dg.Map;
     }
+
 }

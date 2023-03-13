@@ -29,16 +29,19 @@
             for (var i = 0; i < width; i++)
             for (var j = 0; j < height; j++)
                 Map[i, j] = new MapPosition
-                {
-                    X = i,
-                    Y = j,
-                    ImageName = "floor_extra_11"
-                };
+                (
+                    i,
+                    j,
+                    TileType.Wall,
+                    "floor_extra_11"
+                );
         }
 
         public void Generate()
         {
             CreateRoom(1, 3, 6, 7);
+            //CreateTunnel 
+            CreateRoom(10, 3, 6, 7);
         }
 
         private T RandomElement<T>(T[] elements)
@@ -49,11 +52,13 @@
         private void SetWall(int x, int y, int[] wallIndexes)
         {
             Map[x, y].ImageName = DungeonWallSet + "_" + RandomElement(wallIndexes);
+            Map[x, y].TileType = TileType.Wall;
         }
 
         private void SetFloor(int x, int y, string floorSet, int[] floorIndexes)
         {
             Map[x, y].ImageName = "floor_set_" + floorSet + "_" + RandomElement(floorIndexes);
+            Map[x, y].TileType = TileType.Floor;
         }
 
         private void CreateRoom(int leftX, int topY, int width, int height)
